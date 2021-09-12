@@ -2,46 +2,12 @@ import express from "express";
 import compression from "compression";
 import cors from "cors";
 import colors from 'colors';
-import { IResolvers } from "@graphql-tools/utils";
-import { GraphQLSchema } from "graphql";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { graphqlHTTP } from "express-graphql";
-
+import schema from "./schema";
 const app = express();
 const PORT = 2916;
 
-const typeDefs = `
-    type Query {
-        hola: String!
-        holaConNombre(nombre: String!): String!
-        holaConGraphQl: String! 
-    }
-`;
-
-const resolvers : IResolvers = {
-
-    Query: {
-
-        hola(): string {
-            return "Hola mundo";
-        },
-        holaConNombre(__: void, { nombre }) : string {
-            return `Hola mundo con parametro: ${nombre}`;
-        },
-        holaConGraphQl() : string {
-            return "Hola mundo desde curso de GraphQl";
-        }
-
-    }
-
-}
-
-const schema : GraphQLSchema = makeExecutableSchema({
-    typeDefs,
-    resolvers
-})
-
-//app.use('*',cors);
+//app.use('*',cors); 
 
 app.use(compression());
 
